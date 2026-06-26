@@ -11,6 +11,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   <Fragment slot="footer-name">Tekarei Tautua – Notary Public, Republic of Kiribati</Fragment>
 
   <section class="hero">
+    <img src="/images/notary.webp" alt="Ms. Tekarei Tautua - Notary Public of the Republic of Kiribati" class="hero-banner" width="800" height="340" />
     <h1>Notary Public</h1>
     <p class="notary-name">Ms. Tekarei Tautua</p>
     <p>Providing professional notarial services with integrity, precision, and full respect for legal standards. Duly appointed Notary Public of the Republic of Kiribati, supporting the certification and authentication of legal documents for domestic and international use.</p>
@@ -59,6 +60,14 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <style>
+  .hero-banner {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    object-fit: cover;
+  }
   .notary-name {
     font-size: 1.8rem;
     font-weight: 700;

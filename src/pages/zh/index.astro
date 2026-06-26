@@ -11,6 +11,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   <Fragment slot="footer-name">Tekarei Tautua – 公证人，基里巴斯共和国</Fragment>
 
   <section class="hero">
+    <img src="/images/notary.webp" alt="Tekarei Tautua 女士 - 基里巴斯共和国公证人" class="hero-banner" width="800" height="340" />
     <h1>公证人</h1>
     <p class="notary-name">Tekarei Tautua 女士</p>
     <p>以诚信、精确和完全尊重法律标准提供专业公证服务。基里巴斯共和国正式任命的公证人，为国内和国际使用提供法律文件的认证和鉴定。</p>
@@ -59,6 +60,14 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <style>
+  .hero-banner {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    object-fit: cover;
+  }
   .notary-name {
     font-size: 1.8rem;
     font-weight: 700;
