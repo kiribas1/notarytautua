@@ -1,93 +1,155 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import NotaryQuiz from '../../components/NotaryQuiz.astro';
+import WeeklyNews from '../../components/WeeklyNews.astro';
 ---
 
 <BaseLayout
-  title="Notário Público Kiribati - Sra. Tekarei Tautua | Serviços Notariais Certificados"
-  description="Sra. Tekarei Tautua, Notário Público da República de Kiribati. Certificação e autenticação profissional de documentos legais para uso nacional e internacional."
+  title="Notario Publico Kiribati - Sra. Tekarei Tautua | Servicos Notariais Certificados"
+  description="Sra. Tekarei Tautua, Notario Publico da Republica de Kiribati. Certificacao e autenticacao profissional de documentos legais para uso nacional e internacional."
   lang="pt"
 >
   <Fragment slot="logo">Notary Tautua</Fragment>
-  <Fragment slot="footer-name">Tekarei Tautua – Notário Público, República de Kiribati</Fragment>
+  <Fragment slot="footer-name">Tekarei Tautua – Notario Publico, Republica de Kiribati</Fragment>
 
-  <section class="hero">
-    <img src="/images/notary.webp" alt="Sra. Tekarei Tautua - Notário Público da República de Kiribati" class="hero-banner" width="800" height="340" />
-    <h1>Notário Público</h1>
-    <p class="notary-name">Sra. Tekarei Tautua</p>
-    <p>Serviços notariais profissionais com integridade, precisão e pleno respeito aos padrões legais. Notário Público devidamente nomeado da República de Kiribati, apoiando a certificação e autenticação de documentos legais para uso nacional e internacional.</p>
+  <section class="nt-hero">
+    <div class="nt-hero-bg"></div>
+    <div class="nt-hero-overlay"></div>
+    <div class="nt-hero-content">
+      <h1 class="nt-title">Notario Publico</h1>
+      <p class="nt-name">Sra. Tekarei Tautua</p>
+      <p class="nt-lead">Servicos notariais profissionais com integridade, precisao e pleno respeito aos padroes legais.</p>
+    </div>
   </section>
 
-  <div class="ad-slot">Espaço Publicitário - Google AdSense</div>
+  <div class="ad-slot">Espaco Publicitario - Google AdSense</div>
 
   <div class="card-grid">
     <article class="card">
-      <h2>Certificação de Documentos</h2>
-      <p>Certificação oficial de documentos legais incluindo declarações juramentadas, procurações e declarações sob juramento para uso em Kiribati e no exterior.</p>
+      <h2>Certificacao de Documentos</h2>
+      <p>Certificacao oficial de documentos legais incluindo declaracoes juramentadas, procuracoes e declaracoes sob juramento para uso em Kiribati e no exterior.</p>
     </article>
     <article class="card">
-      <h2>Autenticação Internacional</h2>
-      <p>Autenticação e legalização de documentos para uso internacional. Apoio a indivíduos, empresas e agências governamentais com necessidades de documentação transfronteiriça.</p>
+      <h2>Autenticacao Internacional</h2>
+      <p>Autenticacao e legalizacao de documentos para uso internacional. Apoio a individuos, empresas e agencias governamentais com necessidades de documentacao transfronteirica.</p>
     </article>
     <article class="card">
-      <h2>Testemunho e Atestação</h2>
-      <p>Testemunho profissional de assinaturas, juramentos e afirmações. Cada atestação realizada com estrito cumprimento dos requisitos legais aplicáveis.</p>
+      <h2>Testemunho e Atestacao</h2>
+      <p>Testemunho profissional de assinaturas, juramentos e afirmacoes. Cada atestacao realizada com estrito cumprimento dos requisitos legais aplicaveis.</p>
     </article>
     <article class="card">
-      <h2>Cópias Certificadas</h2>
-      <p>Preparação e certificação de cópias fiéis de documentos originais para fins legais, imigratórios e administrativos.</p>
+      <h2>Copias Certificadas</h2>
+      <p>Preparacao e certificacao de copias fieis de documentos originais para fins legais, imigratorios e administrativos.</p>
     </article>
     <article class="card">
-      <h2>Serviços Comerciais</h2>
-      <p>Serviços notariais para documentos corporativos, contratos, acordos de parceria e transações comerciais que exigem autenticação oficial.</p>
+      <h2>Servicos Comerciais</h2>
+      <p>Servicos notariais para documentos corporativos, contratos, acordos de parceria e transacoes comerciais que exigem autenticacao oficial.</p>
     </article>
     <article class="card">
       <h2>Confidencialidade e Integridade</h2>
-      <p>Cada serviço é prestado com estrita confidencialidade, precisão e cumprimento dos requisitos legais aplicáveis da República de Kiribati.</p>
+      <p>Cada servico e prestado com estrita confidencialidade, precisao e cumprimento dos requisitos legais aplicaveis da Republica de Kiribati.</p>
     </article>
   </div>
 
-  <div class="ad-slot">Espaço Publicitário - Google AdSense</div>
+  <div class="ad-slot">Espaco Publicitario - Google AdSense</div>
+
+  <NotaryQuiz lang="pt" />
+
+  <div class="ad-slot">Espaco Publicitario - Google AdSense</div>
+
+  <WeeklyNews lang="pt" />
 
   <section class="contact-info">
     <h2>Contato</h2>
-    <p><strong>Tekarei Tautua</strong> – Notário Público</p>
+    <p><strong>Tekarei Tautua</strong> – Notario Publico</p>
     <p>Betio, South Tarawa</p>
     <p>P.O. Box 118</p>
-    <p>República de Kiribati</p>
+    <p>Republica de Kiribati</p>
   </section>
 
-  <div class="ad-slot">Espaço Publicitário - Google AdSense</div>
+  <div class="ad-slot">Espaco Publicitario - Google AdSense</div>
 </BaseLayout>
 
 <style>
-  .hero-banner {
-    width: 100%;
-    max-width: 800px;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 24px;
-    object-fit: cover;
+  .nt-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin: -40px -20px 0;
+    padding: 0;
   }
-  .notary-name {
-    font-size: 1.8rem;
+  .nt-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('/images/notary.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .nt-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(10,12,18,.55) 0%,
+      rgba(10,12,18,.7) 50%,
+      rgba(10,12,18,.85) 100%
+    );
+  }
+  .nt-hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 800px;
+    padding: 40px 24px;
+  }
+  .nt-title {
+    font-size: 4rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 16px;
+    text-shadow: 0 4px 20px rgba(0,0,0,.5);
+    letter-spacing: -.02em;
+    line-height: 1.1;
+  }
+  .nt-name {
+    font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 12px;
-    opacity: 1;
+    color: #d4a853;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 12px rgba(0,0,0,.4);
+  }
+  .nt-lead {
+    font-size: 1.15rem;
+    color: rgba(255,255,255,.8);
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto;
+    text-shadow: 0 1px 6px rgba(0,0,0,.3);
+  }
+  @media (max-width: 640px) {
+    .nt-title { font-size: 2.4rem; }
+    .nt-name { font-size: 1.4rem; }
+    .nt-lead { font-size: 1rem; }
   }
   .contact-info {
-    background: white;
-    border-radius: 8px;
+    background: rgba(212,168,83,.04);
+    border: 1px solid rgba(212,168,83,.12);
+    border-radius: 12px;
     padding: 32px;
     margin-top: 32px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     text-align: center;
   }
   .contact-info h2 {
     margin-bottom: 16px;
-    color: #1a1a2e;
+    color: #d4a853;
+    font-size: 1.4rem;
   }
   .contact-info p {
-    margin: 4px 0;
-    color: #555;
+    margin: 6px 0;
+    color: rgba(245,230,200,.55);
   }
 </style>

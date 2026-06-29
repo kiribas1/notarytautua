@@ -16,10 +16,10 @@ const dir = lang === 'ar' ? 'rtl' : 'ltr';
 const locales = ['en', 'es', 'zh', 'ru', 'pt', 'ar'];
 const langNames: Record<string, string> = {
   en: 'English',
-  es: 'Español',
+  es: 'Espanol',
   zh: '中文',
   ru: 'Русский',
-  pt: 'Português',
+  pt: 'Portugues',
   ar: 'العربية',
 };
 ---
@@ -34,6 +34,11 @@ const langNames: Record<string, string> = {
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="robots" content="index, follow" />
+
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -54,7 +59,7 @@ const langNames: Record<string, string> = {
     })}
     <link rel="alternate" hreflang="x-default" href={`${siteUrl}/en/`} />
 
-    <!-- Google AdSense - replace ca-pub-XXXXXXX with your real ID -->
+    <!-- Google AdSense -->
     <script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2701690512336282"
@@ -68,17 +73,18 @@ const langNames: Record<string, string> = {
         box-sizing: border-box;
       }
       body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         line-height: 1.6;
-        color: #1a1a2e;
-        background: #fafafa;
+        color: #f5e6c8;
+        background: #0a0c12;
       }
       a {
-        color: #0066cc;
+        color: #d4a853;
         text-decoration: none;
       }
       a:hover {
         text-decoration: underline;
+        color: #e6c078;
       }
       .container {
         max-width: 1100px;
@@ -86,7 +92,10 @@ const langNames: Record<string, string> = {
         padding: 0 20px;
       }
       header {
-        background: #1a1a2e;
+        background: rgba(10, 12, 18, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(212, 168, 83, 0.3);
         color: white;
         padding: 16px 0;
         position: sticky;
@@ -103,10 +112,12 @@ const langNames: Record<string, string> = {
       .logo {
         font-size: 1.4rem;
         font-weight: 700;
-        color: white;
+        color: #d4a853;
+        letter-spacing: -0.01em;
       }
       .logo:hover {
         text-decoration: none;
+        color: #e6c078;
       }
       nav {
         display: flex;
@@ -114,15 +125,16 @@ const langNames: Record<string, string> = {
         flex-wrap: wrap;
       }
       nav a {
-        color: #ccc;
+        color: rgba(245, 230, 200, 0.6);
         padding: 4px 10px;
         border-radius: 4px;
         font-size: 0.85rem;
+        transition: all 0.2s;
       }
       nav a:hover,
       nav a.active {
-        color: white;
-        background: rgba(255, 255, 255, 0.1);
+        color: #d4a853;
+        background: rgba(212, 168, 83, 0.1);
         text-decoration: none;
       }
       main {
@@ -130,15 +142,16 @@ const langNames: Record<string, string> = {
         padding: 40px 0;
       }
       footer {
-        background: #1a1a2e;
-        color: #999;
+        background: rgba(10, 12, 18, 0.95);
+        border-top: 1px solid rgba(212, 168, 83, 0.15);
+        color: rgba(245, 230, 200, 0.4);
         padding: 24px 0;
         text-align: center;
         font-size: 0.85rem;
       }
       .ad-slot {
-        background: #f0f0f0;
-        border: 1px dashed #ccc;
+        background: rgba(212, 168, 83, 0.04);
+        border: 1px dashed rgba(212, 168, 83, 0.15);
         padding: 20px;
         text-align: center;
         margin: 24px 0;
@@ -146,26 +159,9 @@ const langNames: Record<string, string> = {
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #999;
+        color: rgba(245, 230, 200, 0.25);
         font-size: 0.8rem;
-      }
-      .hero {
-        text-align: center;
-        padding: 60px 20px;
-        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-        color: white;
-        border-radius: 12px;
-        margin-bottom: 40px;
-      }
-      .hero h1 {
-        font-size: 2.4rem;
-        margin-bottom: 16px;
-      }
-      .hero p {
-        font-size: 1.15rem;
-        opacity: 0.9;
-        max-width: 600px;
-        margin: 0 auto;
+        border-radius: 8px;
       }
       .card-grid {
         display: grid;
@@ -174,28 +170,32 @@ const langNames: Record<string, string> = {
         margin: 32px 0;
       }
       .card {
-        background: white;
-        border-radius: 8px;
-        padding: 24px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        transition: transform 0.2s;
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(212, 168, 83, 0.1);
+        border-radius: 12px;
+        padding: 28px;
+        transition: all 0.3s ease;
       }
       .card:hover {
-        transform: translateY(-2px);
+        background: rgba(212, 168, 83, 0.06);
+        border-color: rgba(212, 168, 83, 0.35);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 32px rgba(212, 168, 83, 0.08);
       }
       .card h2 {
         font-size: 1.3rem;
-        margin-bottom: 8px;
-        color: #1a1a2e;
+        margin-bottom: 10px;
+        color: #d4a853;
+        font-weight: 600;
       }
       .card p {
-        color: #555;
+        color: rgba(245, 230, 200, 0.6);
         font-size: 0.95rem;
+        line-height: 1.7;
       }
       @media (max-width: 640px) {
-        .hero h1 {
-          font-size: 1.6rem;
-        }
         .card-grid {
           grid-template-columns: 1fr;
         }

@@ -1,0 +1,234 @@
+---
+interface Props {
+  lang: string;
+}
+const { lang } = Astro.props;
+
+const labels: Record<string, Record<string, string>> = {
+  en: { title: 'Notary Knowledge Quiz', subtitle: 'Test your knowledge of legal and notarial terms', score: 'Score', of: 'of', correct: 'Correct!', wrong: 'Not quite.', theAnswer: 'The answer is', next: 'Next Question', finish: 'See Results', result: 'Your Score', outOf: 'out of', perfect: 'Perfect score! You are a legal expert!', great: 'Great job! Strong legal knowledge.', good: 'Good effort! Keep learning about notarial services.', tryAgain: 'Keep studying! Notarial knowledge is valuable.', playAgain: 'Play Again', question: 'Question' },
+  es: { title: 'Quiz de Conocimiento Notarial', subtitle: 'Pon a prueba tu conocimiento de terminos legales y notariales', score: 'Puntuacion', of: 'de', correct: 'Correcto!', wrong: 'No exactamente.', theAnswer: 'La respuesta es', next: 'Siguiente Pregunta', finish: 'Ver Resultados', result: 'Tu Puntuacion', outOf: 'de', perfect: 'Puntuacion perfecta! Eres un experto legal!', great: 'Excelente! Fuerte conocimiento legal.', good: 'Buen esfuerzo! Sigue aprendiendo sobre servicios notariales.', tryAgain: 'Sigue estudiando! El conocimiento notarial es valioso.', playAgain: 'Jugar de Nuevo', question: 'Pregunta' },
+  zh: { title: '公证知识问答', subtitle: '测试您对法律和公证术语的了解', score: '得分', of: '/', correct: '正确！', wrong: '不太对。', theAnswer: '答案是', next: '下一题', finish: '查看结果', result: '您的得分', outOf: '/', perfect: '满分！您是法律专家！', great: '做得好！法律知识扎实。', good: '不错的尝试！继续学习公证服务。', tryAgain: '继续学习！公证知识很有价值。', playAgain: '再玩一次', question: '问题' },
+  ru: { title: 'Нотариальная Викторина', subtitle: 'Проверьте свои знания юридических и нотариальных терминов', score: 'Счёт', of: 'из', correct: 'Правильно!', wrong: 'Не совсем.', theAnswer: 'Правильный ответ', next: 'Следующий вопрос', finish: 'Результаты', result: 'Ваш счёт', outOf: 'из', perfect: 'Идеальный счёт! Вы юридический эксперт!', great: 'Отлично! Сильные юридические знания.', good: 'Хорошая попытка! Продолжайте изучать нотариальные услуги.', tryAgain: 'Продолжайте учиться! Нотариальные знания ценны.', playAgain: 'Играть снова', question: 'Вопрос' },
+  pt: { title: 'Quiz de Conhecimento Notarial', subtitle: 'Teste seu conhecimento sobre termos legais e notariais', score: 'Pontuacao', of: 'de', correct: 'Correto!', wrong: 'Nao exatamente.', theAnswer: 'A resposta e', next: 'Proxima Pergunta', finish: 'Ver Resultados', result: 'Sua Pontuacao', outOf: 'de', perfect: 'Pontuacao perfeita! Voce e um especialista legal!', great: 'Otimo! Forte conhecimento juridico.', good: 'Bom esforco! Continue aprendendo sobre servicos notariais.', tryAgain: 'Continue estudando! O conhecimento notarial e valioso.', playAgain: 'Jogar Novamente', question: 'Pergunta' },
+  ar: { title: 'اختبار المعرفة التوثيقية', subtitle: 'اختبر معرفتك بالمصطلحات القانونية والتوثيقية', score: 'النتيجة', of: 'من', correct: 'صحيح!', wrong: 'ليس تماماً.', theAnswer: 'الإجابة هي', next: 'السؤال التالي', finish: 'عرض النتائج', result: 'نتيجتك', outOf: 'من', perfect: 'نتيجة مثالية! أنت خبير قانوني!', great: 'عمل رائع! معرفة قانونية قوية.', good: 'جهد جيد! واصل التعلم عن خدمات التوثيق.', tryAgain: 'واصل الدراسة! المعرفة التوثيقية قيمة.', playAgain: 'العب مرة أخرى', question: 'سؤال' },
+};
+const t = labels[lang] || labels.en;
+const tJson = JSON.stringify(t);
+---
+
+<section class="nq-section" id="notary-quiz">
+  <div class="nq-container">
+    <h2 class="nq-title">{t.title}</h2>
+    <p class="nq-subtitle">{t.subtitle}</p>
+
+    <div class="nq-progress">
+      <div class="nq-progress-bar" id="nq-progress-bar"></div>
+    </div>
+    <div class="nq-score-line">
+      <span id="nq-question-num">{t.question} 1 {t.of} 12</span>
+      <span>{t.score}: <strong id="nq-score">0</strong></span>
+    </div>
+
+    <div class="nq-card" id="nq-card">
+      <p class="nq-question" id="nq-question"></p>
+      <div class="nq-options" id="nq-options"></div>
+      <div class="nq-feedback nq-hidden" id="nq-feedback"></div>
+      <button class="nq-btn nq-hidden" id="nq-next">{t.next}</button>
+    </div>
+
+    <div class="nq-result nq-hidden" id="nq-result">
+      <div class="nq-result-score" id="nq-result-score"></div>
+      <p class="nq-result-msg" id="nq-result-msg"></p>
+      <button class="nq-btn" onclick="location.reload()">{t.playAgain}</button>
+    </div>
+  </div>
+</section>
+
+<script is:inline define:vars={{ tJson }}>
+const t = JSON.parse(tJson);
+
+const allQuestions = [
+  { q: "What is an affidavit?", a: "A written sworn statement", opts: ["A written sworn statement", "A business contract", "A court ruling", "A property deed"] },
+  { q: "What does apostille mean?", a: "International document certification under Hague Convention", opts: ["A type of legal penalty", "International document certification under Hague Convention", "A court appeal process", "A notary's personal signature"] },
+  { q: "What is a power of attorney?", a: "Legal document granting authority to act on someone's behalf", opts: ["A criminal defense document", "A court summons", "Legal document granting authority to act on someone's behalf", "A property ownership certificate"] },
+  { q: "What is notarization?", a: "Official verification of signatures and documents", opts: ["Writing a legal opinion", "Official verification of signatures and documents", "Filing a lawsuit", "Creating a new law"] },
+  { q: "What is a statutory declaration?", a: "A formal statement of fact made under oath", opts: ["A government tax form", "A formal statement of fact made under oath", "A business registration document", "A judicial verdict"] },
+  { q: "What does 'certified true copy' mean?", a: "Official copy verified to match the original", opts: ["A photocopy of any document", "Official copy verified to match the original", "A draft version of a contract", "An unsigned document replica"] },
+  { q: "What is a deposition?", a: "Sworn testimony given outside of court", opts: ["A bank deposit receipt", "A property transfer", "Sworn testimony given outside of court", "A criminal charge"] },
+  { q: "What is a jurat?", a: "Certificate stating when and where an oath was taken", opts: ["A type of legal judge", "Certificate stating when and where an oath was taken", "A jury selection process", "A notary's desk"] },
+  { q: "What is authentication?", a: "Process of verifying a document's genuineness", opts: ["Process of verifying a document's genuineness", "Creating a new legal document", "Translating a document to another language", "Filing a document with the court"] },
+  { q: "What is legalization?", a: "Making a document valid in another country", opts: ["Making an action illegal", "Passing a new law in parliament", "Making a document valid in another country", "Registering a business"] },
+  { q: "What is a notary seal?", a: "Official embossed or stamped mark of authority", opts: ["A decorative envelope sticker", "Official embossed or stamped mark of authority", "A type of maritime animal", "A personal signature style"] },
+  { q: "What is witnessing?", a: "Observing and confirming the signing of a document", opts: ["Testifying in court as an expert", "Observing and confirming the signing of a document", "Writing a legal brief", "Investigating a crime scene"] },
+  { q: "What is an oath?", a: "A solemn promise to tell the truth", opts: ["A solemn promise to tell the truth", "A type of legal contract", "A court's final decision", "A notary's fee schedule"] },
+  { q: "What is an acknowledgment?", a: "Declaration that a signature is genuine and voluntary", opts: ["A thank-you letter", "Declaration that a signature is genuine and voluntary", "A receipt for legal fees", "An agreement to pay a debt"] },
+  { q: "What is a certified translation?", a: "Translation verified as accurate by an authorized person", opts: ["Any translation done online", "Translation verified as accurate by an authorized person", "A document written in two languages", "A dictionary entry"] },
+  { q: "What is a deed?", a: "Legal document transferring property ownership", opts: ["A good action or behavior", "A list of legal terms", "Legal document transferring property ownership", "A notary's appointment letter"] }
+];
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const questions = shuffle(allQuestions).slice(0, 12);
+let current = 0;
+let score = 0;
+let answered = false;
+
+function renderQuestion() {
+  const q = questions[current];
+  document.getElementById('nq-question').textContent = q.q;
+  document.getElementById('nq-question-num').textContent = `${t.question} ${current + 1} ${t.of} 12`;
+  document.getElementById('nq-progress-bar').style.width = `${((current) / 12) * 100}%`;
+
+  const optsEl = document.getElementById('nq-options');
+  optsEl.innerHTML = '';
+  const shuffledOpts = shuffle(q.opts);
+  shuffledOpts.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'nq-opt';
+    btn.textContent = opt;
+    btn.onclick = () => selectAnswer(opt, btn);
+    optsEl.appendChild(btn);
+  });
+
+  document.getElementById('nq-feedback').classList.add('nq-hidden');
+  document.getElementById('nq-next').classList.add('nq-hidden');
+  answered = false;
+}
+
+function selectAnswer(opt, btn) {
+  if (answered) return;
+  answered = true;
+  const q = questions[current];
+  const isCorrect = opt === q.a;
+  const feedback = document.getElementById('nq-feedback');
+  const allBtns = document.querySelectorAll('.nq-opt');
+
+  allBtns.forEach(b => {
+    b.disabled = true;
+    if (b.textContent === q.a) b.classList.add('nq-correct');
+    if (b === btn && !isCorrect) b.classList.add('nq-wrong');
+  });
+
+  if (isCorrect) {
+    score++;
+    document.getElementById('nq-score').textContent = score;
+    feedback.innerHTML = `<span class="nq-fb-icon nq-fb-yes">&#10003;</span> ${t.correct}`;
+    feedback.className = 'nq-feedback nq-fb-green';
+  } else {
+    feedback.innerHTML = `<span class="nq-fb-icon nq-fb-no">&#10007;</span> ${t.wrong} ${t.theAnswer}: <strong>${q.a}</strong>`;
+    feedback.className = 'nq-feedback nq-fb-red';
+  }
+
+  const nextBtn = document.getElementById('nq-next');
+  nextBtn.classList.remove('nq-hidden');
+  nextBtn.textContent = current < 11 ? t.next : t.finish;
+}
+
+document.getElementById('nq-next').addEventListener('click', () => {
+  current++;
+  if (current >= 12) {
+    showResult();
+  } else {
+    renderQuestion();
+  }
+});
+
+function showResult() {
+  document.getElementById('nq-card').classList.add('nq-hidden');
+  const resultEl = document.getElementById('nq-result');
+  resultEl.classList.remove('nq-hidden');
+  document.getElementById('nq-result-score').textContent = `${score} ${t.outOf} 12`;
+  document.getElementById('nq-progress-bar').style.width = '100%';
+
+  let msg = t.tryAgain;
+  if (score === 12) msg = t.perfect;
+  else if (score >= 9) msg = t.great;
+  else if (score >= 6) msg = t.good;
+  document.getElementById('nq-result-msg').textContent = msg;
+}
+
+renderQuestion();
+</script>
+
+<style>
+  .nq-section {
+    padding: 48px 0;
+    border-top: 1px solid rgba(212,168,83,.1);
+  }
+  .nq-container { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+  .nq-title {
+    font-size: 1.8rem; font-weight: 700; text-align: center; margin-bottom: 8px;
+    background: linear-gradient(135deg, #d4a853, #f5e6c8);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .nq-subtitle { text-align: center; color: rgba(245,230,200,.5); font-size: .95rem; margin-bottom: 28px; }
+  .nq-progress {
+    height: 4px; background: rgba(212,168,83,.1); border-radius: 4px; margin-bottom: 12px; overflow: hidden;
+  }
+  .nq-progress-bar {
+    height: 100%; background: linear-gradient(90deg, #d4a853, #f5e6c8); border-radius: 4px;
+    transition: width .4s ease; width: 0%;
+  }
+  .nq-score-line {
+    display: flex; justify-content: space-between; font-size: .85rem;
+    color: rgba(245,230,200,.45); margin-bottom: 20px;
+  }
+  .nq-score-line strong { color: #d4a853; }
+  .nq-card {
+    background: rgba(212,168,83,.04); border: 1px solid rgba(212,168,83,.12);
+    border-radius: 16px; padding: 32px 28px;
+  }
+  .nq-question {
+    font-size: 1.2rem; font-weight: 600; color: rgba(245,230,200,.95);
+    margin-bottom: 24px; line-height: 1.5; text-align: center;
+  }
+  .nq-options { display: grid; gap: 10px; }
+  .nq-opt {
+    display: block; width: 100%; padding: 14px 18px; text-align: left;
+    background: rgba(255,255,255,.03); border: 1px solid rgba(212,168,83,.12);
+    border-radius: 10px; color: rgba(245,230,200,.8); font-size: .95rem;
+    cursor: pointer; transition: all .2s; font-family: inherit;
+  }
+  .nq-opt:hover:not(:disabled) {
+    background: rgba(212,168,83,.08); border-color: rgba(212,168,83,.3);
+  }
+  .nq-opt:disabled { cursor: default; opacity: .7; }
+  .nq-opt.nq-correct {
+    background: rgba(34,197,94,.12) !important; border-color: rgba(34,197,94,.4) !important;
+    color: #86efac !important; opacity: 1 !important;
+  }
+  .nq-opt.nq-wrong {
+    background: rgba(239,68,68,.12) !important; border-color: rgba(239,68,68,.4) !important;
+    color: #fca5a5 !important; opacity: 1 !important;
+  }
+  .nq-feedback {
+    margin-top: 18px; padding: 14px 18px; border-radius: 10px;
+    font-size: .92rem; line-height: 1.5;
+  }
+  .nq-fb-green { background: rgba(34,197,94,.08); color: #86efac; border: 1px solid rgba(34,197,94,.2); }
+  .nq-fb-red { background: rgba(239,68,68,.08); color: #fca5a5; border: 1px solid rgba(239,68,68,.2); }
+  .nq-fb-icon { font-weight: 700; margin-right: 6px; }
+  .nq-hidden { display: none !important; }
+  .nq-btn {
+    display: block; width: 100%; margin-top: 16px; padding: 14px;
+    background: linear-gradient(135deg, #d4a853, #c49a48); color: #0a0c12;
+    border: none; border-radius: 10px; font-size: 1rem; font-weight: 600;
+    cursor: pointer; transition: all .2s; font-family: inherit;
+  }
+  .nq-btn:hover { background: linear-gradient(135deg, #e6c078, #d4a853); transform: translateY(-1px); }
+  .nq-result { text-align: center; padding: 48px 20px; }
+  .nq-result-score {
+    font-size: 3rem; font-weight: 800;
+    background: linear-gradient(135deg, #d4a853, #f5e6c8);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: 12px;
+  }
+  .nq-result-msg { color: rgba(245,230,200,.6); font-size: 1.1rem; margin-bottom: 28px; }
+</style>

@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import NotaryQuiz from '../../components/NotaryQuiz.astro';
+import WeeklyNews from '../../components/WeeklyNews.astro';
 ---
 
 <BaseLayout
@@ -10,11 +12,14 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   <Fragment slot="logo">Notary Tautua</Fragment>
   <Fragment slot="footer-name">Tekarei Tautua – Notary Public, Republic of Kiribati</Fragment>
 
-  <section class="hero">
-    <img src="/images/notary.webp" alt="Ms. Tekarei Tautua - Notary Public of the Republic of Kiribati" class="hero-banner" width="800" height="340" />
-    <h1>Notary Public</h1>
-    <p class="notary-name">Ms. Tekarei Tautua</p>
-    <p>Providing professional notarial services with integrity, precision, and full respect for legal standards. Duly appointed Notary Public of the Republic of Kiribati, supporting the certification and authentication of legal documents for domestic and international use.</p>
+  <section class="nt-hero">
+    <div class="nt-hero-bg"></div>
+    <div class="nt-hero-overlay"></div>
+    <div class="nt-hero-content">
+      <h1 class="nt-title">Notary Public</h1>
+      <p class="nt-name">Ms. Tekarei Tautua</p>
+      <p class="nt-lead">Providing professional notarial services with integrity, precision, and full respect for legal standards.</p>
+    </div>
   </section>
 
   <div class="ad-slot">Ad Space - Google AdSense</div>
@@ -48,6 +53,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
   <div class="ad-slot">Ad Space - Google AdSense</div>
 
+  <NotaryQuiz lang="en" />
+
+  <div class="ad-slot">Ad Space - Google AdSense</div>
+
+  <WeeklyNews lang="en" />
+
   <section class="contact-info">
     <h2>Contact</h2>
     <p><strong>Tekarei Tautua</strong> – Notary Public</p>
@@ -60,34 +71,85 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <style>
-  .hero-banner {
-    width: 100%;
-    max-width: 800px;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 24px;
-    object-fit: cover;
+  .nt-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin: -40px -20px 0;
+    padding: 0;
   }
-  .notary-name {
-    font-size: 1.8rem;
+  .nt-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('/images/notary.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .nt-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(10,12,18,.55) 0%,
+      rgba(10,12,18,.7) 50%,
+      rgba(10,12,18,.85) 100%
+    );
+  }
+  .nt-hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 800px;
+    padding: 40px 24px;
+  }
+  .nt-title {
+    font-size: 4rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 16px;
+    text-shadow: 0 4px 20px rgba(0,0,0,.5);
+    letter-spacing: -.02em;
+    line-height: 1.1;
+  }
+  .nt-name {
+    font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 12px;
-    opacity: 1;
+    color: #d4a853;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 12px rgba(0,0,0,.4);
+  }
+  .nt-lead {
+    font-size: 1.15rem;
+    color: rgba(255,255,255,.8);
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto;
+    text-shadow: 0 1px 6px rgba(0,0,0,.3);
+  }
+  @media (max-width: 640px) {
+    .nt-title { font-size: 2.4rem; }
+    .nt-name { font-size: 1.4rem; }
+    .nt-lead { font-size: 1rem; }
   }
   .contact-info {
-    background: white;
-    border-radius: 8px;
+    background: rgba(212,168,83,.04);
+    border: 1px solid rgba(212,168,83,.12);
+    border-radius: 12px;
     padding: 32px;
     margin-top: 32px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     text-align: center;
   }
   .contact-info h2 {
     margin-bottom: 16px;
-    color: #1a1a2e;
+    color: #d4a853;
+    font-size: 1.4rem;
   }
   .contact-info p {
-    margin: 4px 0;
-    color: #555;
+    margin: 6px 0;
+    color: rgba(245,230,200,.55);
   }
 </style>

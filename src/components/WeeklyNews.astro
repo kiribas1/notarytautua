@@ -1,0 +1,79 @@
+---
+import newsData from '../data/weekly-news.json';
+
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+const items = newsData.items[lang as keyof typeof newsData.items] || newsData.items.en;
+const week = newsData.week;
+const labels: Record<string, string> = {
+  en: 'Notary & Legal News',
+  es: 'Noticias Notariales y Legales',
+  zh: '公证与法律新闻',
+  ru: 'Нотариальные и юридические новости',
+  pt: 'Noticias Notariais e Juridicas',
+  ar: 'أخبار التوثيق والقانون',
+};
+---
+
+<section class="wn-section">
+  <div class="wn-container">
+    <div class="wn-header">
+      <h2 class="wn-title">{labels[lang] || labels.en}</h2>
+      <span class="wn-week">{week}</span>
+    </div>
+    <div class="wn-grid">
+      {items.map((item: { title: string; summary: string }, i: number) => (
+        <article class="wn-item">
+          <span class="wn-num">{String(i + 1).padStart(2, '0')}</span>
+          <div>
+            <h3 class="wn-item-title">{item.title}</h3>
+            <p class="wn-item-summary">{item.summary}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .wn-section {
+    background: linear-gradient(180deg, rgba(212,168,83,.04), transparent);
+    border-top: 1px solid rgba(212,168,83,.1);
+    padding: 60px 0;
+  }
+  .wn-container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+  .wn-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 32px; flex-wrap: wrap; gap: 12px;
+  }
+  .wn-title {
+    font-size: 1.6rem; font-weight: 700;
+    background: linear-gradient(135deg, #d4a853, #f5e6c8);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .wn-week {
+    font-size: .8rem; font-weight: 600; color: rgba(212,168,83,.5);
+    background: rgba(212,168,83,.08); border: 1px solid rgba(212,168,83,.15);
+    padding: 6px 14px; border-radius: 999px; letter-spacing: .06em;
+  }
+  .wn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width: 700px) { .wn-grid { grid-template-columns: 1fr; } }
+  .wn-item {
+    display: flex; gap: 14px; padding: 16px 18px;
+    background: rgba(212,168,83,.03); border: 1px solid rgba(212,168,83,.08);
+    border-radius: 12px; transition: all .25s;
+  }
+  .wn-item:hover {
+    background: rgba(212,168,83,.07); border-color: rgba(212,168,83,.2);
+    transform: translateX(4px);
+  }
+  .wn-num {
+    font-size: 1.4rem; font-weight: 800; color: rgba(212,168,83,.3);
+    flex-shrink: 0; line-height: 1; padding-top: 2px;
+  }
+  .wn-item-title { font-size: .95rem; font-weight: 600; color: rgba(245,230,200,.9); margin-bottom: 4px; line-height: 1.3; }
+  .wn-item-summary { font-size: .82rem; color: rgba(245,230,200,.45); line-height: 1.5; margin: 0; }
+</style>
