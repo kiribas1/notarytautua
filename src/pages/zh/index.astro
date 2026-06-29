@@ -73,7 +73,7 @@ import WeeklyNews from '../../components/WeeklyNews.astro';
 <style>
   .nt-hero {
     position: relative;
-    min-height: 100vh;
+    min-height: 70vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -85,8 +85,9 @@ import WeeklyNews from '../../components/WeeklyNews.astro';
     position: absolute;
     inset: 0;
     background-image: url('/images/notary.webp');
-    background-size: cover;
-    background-position: center;
+    background-size: contain;
+    background-position: center center;
+    background-color: #0a0c12;
     background-repeat: no-repeat;
   }
   .nt-hero-overlay {
